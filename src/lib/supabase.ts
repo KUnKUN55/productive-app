@@ -1,11 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { Task, TimetableBlock, Bookmark } from '../types/database';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Singleton instance
+export const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey);
 
+// Compatibility function for existing pages
+export const createClient = () => supabase;
 
 // Helper types for the database
 export type Database = {
